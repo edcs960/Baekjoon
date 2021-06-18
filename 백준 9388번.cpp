@@ -15,14 +15,14 @@ char i_pw[11];
 char t_pw[11];
 int caps_pw[11] = {0,};
 
-int ck_n_pw(char a[]) {
+int ck_n_pw(char a[]) { // pw에 숫자가 있는지 확인
 	for (int i = 0; i < strlen(a); i++) {
 		if (a[i] >= 48 && a[i] <= 57) { return 1; }
 	}
 	return 0;
 }
 
-void strTruncation() {
+void strTruncation() { // 숫자와 영문이 섞여서 들어왔을 시 영문만 t_pw배열에 넣음.
 	int count=0,i=0;
 	while (pw[i] != '\0') {
 		if (pw[i] >= 65 && pw[i] <= 90) {
@@ -37,12 +37,12 @@ void strTruncation() {
 	}
 }
 
-int ck_num() {
+int ck_num() { // num lock 확인
 	if (ck_n_pw(pw) && !ck_n_pw(i_pw)) { return 1; }
 	return 0;
 }
 
-int ck_caps() {
+int ck_caps() { // caps lock 확인
 	if (ck_n_pw(pw)) {
 		strTruncation();
 		for (int i = 0; i < strlen(t_pw); i++) {
