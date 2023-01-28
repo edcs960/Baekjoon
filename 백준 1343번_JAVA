@@ -1,0 +1,72 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+    private static String N;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
+        N = st.nextToken();
+
+        if (N.contains(".") == false) { // '.' 이 없는 경우
+            sb.append(PolyominoCheck(N));
+        } else {
+
+            int i = 0;
+            while(true){
+                int dotIndex = N.indexOf(".");
+                if(dotIndex != -1){
+                    String dotBeforeStr = N.substring(0, dotIndex);
+                    N = N.substring(dotIndex+1);
+                    String polyomino = PolyominoCheck(dotBeforeStr);
+                    if(polyomino.equals("-1")){
+                        sb.setLength(0);
+                        sb.append("-1");
+                        break;
+                    }else{
+                        sb.append(polyomino);
+                        sb.append(".");
+                    }
+                }
+                else{
+                    String polyomino = PolyominoCheck(N);
+                    if(polyomino.equals("-1")){
+                        sb.setLength(0);
+                        sb.append("-1");
+                        break;
+                    }else{
+                        sb.append(PolyominoCheck(N));
+                    }
+                    break;
+                }
+            }
+        }
+        System.out.println(sb);
+    }
+
+    public static String PolyominoCheck(String input) {
+        int length = input.length();
+        int aCount = length / 4;
+        int bCount = (length - 4 * aCount) / 2;
+        String output = "";
+
+        if(length == aCount*4 + bCount*2){
+            for(int i = 0; i<aCount;i++){
+                output += "AAAA";
+            }
+            for(int i = 0; i<bCount;i++){
+                output += "BB";
+            }
+            return output;
+        }
+        else{
+            output = "-1";
+            return output;
+        }
+    }
+}
